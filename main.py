@@ -1,6 +1,10 @@
+import time
 import pytest
 from selenium import webdriver
 
+driver = webdriver.Chrome()
+url = 'https://www.vk.com'
 
-
-driver = webdriver.Chrome (executable_path="C:\\Users\\Nikita\\PycharmProjects\\Selenium\\chrome_driver\\chromedriver.exe")
+driver.get(url=url)
+time.sleep(3)
+driver.close()
