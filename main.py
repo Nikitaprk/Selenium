@@ -16,4 +16,4 @@ if __name__ == '__main__':
 # See PyCharm help at https://www.jetbrains.com/help/pycharm/
 
 
-print('This is a test')
+print('This is a new one test')
