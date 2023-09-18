@@ -13,21 +13,7 @@ def driver():
     return chr_driver
 
 
-def test_check_stickers(driver):
-    list_goods = driver.find_elements(By.XPATH, "//ul[@class='listing-wrapper products']/li[*]")  # cписок всех товаров
-    for x in range(len(driver.find_elements(By.XPATH, "//ul[@class='listing-wrapper products']/li[*]"))):
-        assert len(list_goods[x].find_elements(By.XPATH,".//div[@class='image-wrapper']/div")) == 1  # внутри товара 1 элемент со стикером
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+def test_check_stickers2(driver):
+    list_goods = driver.find_elements(By.XPATH, "//li[@class='product column shadow hover-light']")  # cписок всех товаров
+    for x in range(len(driver.find_elements(By.XPATH, "//li[@class='product column shadow hover-light']"))):
+        assert len(list_goods[x].find_elements(By.XPATH,".//div[starts-with(@class, 'sticker')]")) == 1  # внутри товара 1 элемент со стикером
