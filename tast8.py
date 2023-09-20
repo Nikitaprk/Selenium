@@ -30,10 +30,10 @@ def test_check_abc_inner(driver):
         if int(list_[x].get_attribute('innerText')) > 0:  # если кол-во зон больше нуля
             list_[x].find_element(By.XPATH, './following::a').click()  # то переходим далее по ссылке
             names = []
-            for q in driver.find_elements(By.XPATH, "//td[3]/input[@type='hidden']"):
-                names.append(q.get_attribute('defaultValue'))  # засовываем все зоны в список
+            for q in driver.find_elements(By.XPATH, "//*[@id='table-zones']//td[3]"):
+                if len(q.get_attribute('textContent'))>0:  # проверяем, что атрибут не пустой
+                    names.append(q.get_attribute('textContent'))  # засовываем все зоны в список
             assert names == sorted(names)  # сравниваем его с им же, только отсортированным
             driver.back()
             list_ = driver.find_elements(By.XPATH, "//tr[@class='row']/td[6]") # заново ищем элементы
-
 
