@@ -14,6 +14,6 @@ def driver():
 
 
 def test_check_stickers2(driver):
-    list_goods = driver.find_elements(By.XPATH, "//li[@class='product column shadow hover-light']")  # cписок всех товаров
-    for x in range(len(driver.find_elements(By.XPATH, "//li[@class='product column shadow hover-light']"))):
+    list_goods = driver.find_elements(By.XPATH, "//div[@class='image-wrapper']")  # cписок всех товаров
+    for x in range(len(list_goods)):
         assert len(list_goods[x].find_elements(By.XPATH,".//div[starts-with(@class, 'sticker')]")) == 1  # внутри товара 1 элемент со стикером
