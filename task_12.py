@@ -9,7 +9,7 @@ from selenium.webdriver.common.by import By
 
 # path = Path("pictures/te2st.jpg")
 fake = Faker()
-
+print(fake.name())
 
 @pytest.fixture()
 def driver():
@@ -24,11 +24,12 @@ def driver():
 
 
 def test(driver):
+    new_product = fake.name()
     driver.find_element(By.XPATH, "//a[text()=' Add New Product']").click()
     # general
     driver.find_element(By.XPATH, "//label[text()=' Enabled']").click()
     driver.find_element(By.XPATH, "//input[@name='code']").send_keys('12345')
-    driver.find_element(By.XPATH, "//input[@name='name[en]']").send_keys('new_product')
+    driver.find_element(By.XPATH, "//input[@name='name[en]']").send_keys(new_product)
     driver.find_element(By.XPATH, "//input[@data-name='Rubber Ducks']").click()
     driver.find_element(By.XPATH, "//input[@value='1-3']").click()
     driver.find_element(By.XPATH, "//input[@name='quantity']").send_keys('100')
@@ -55,4 +56,4 @@ def test(driver):
     driver.find_element(By.XPATH, "//input[@name='prices[EUR]']").send_keys('10')
     driver.find_element(By.XPATH, "//button[@name='save']").click()
     time.sleep(5)
-    assert driver.find_element(By.XPATH, "//a[text()='new_product']") # проверяем, что товар появился в списке
+    assert driver.find_element(By.XPATH, f"//a[text()='{new_product}']") # проверяем, что товар появился в списке
