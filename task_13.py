@@ -29,6 +29,7 @@ def test123(driver):
         driver.find_element(By.XPATH, "//a[@href='http://localhost/litecart/en/']").click()
     driver.find_element(By.XPATH, "//a[text()='Checkout »']").click()
     elems = driver.find_elements(By.XPATH, "//td[@class='item']")  # список всех элементов на странице Checkout
+    time.sleep(5) # добавил сюда ожидание для теста, чтобы было видно изначальное кол-во товаров на странице checkout, т.е первое удаление мгновенное
     for q in range(len(elems)):
         driver.find_element(By.XPATH, "//button[text()='Remove']").click()
         wait.until(EC.staleness_of(elems[0]))  # ждем пока не пропадет элемент из списка
