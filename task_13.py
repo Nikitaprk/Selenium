@@ -11,12 +11,12 @@ def driver():
     chr_driver = webdriver.Chrome()
     chr_driver.get("http://localhost/litecart/en/")
     chr_driver.maximize_window()
-    chr_driver.implicitly_wait(5)
+#   chr_driver.implicitly_wait(2)
     return chr_driver
 
 
 def test123(driver):
-    wait = WebDriverWait(driver, 2)
+    wait = WebDriverWait(driver, 3)
     x = 1  # переменная для дальнейшего подсчета кол-во элементов в корзине
     for i in range(3):
         driver.find_element(By.XPATH, "//li[starts-with(@class, 'product')]").click()  # клик на первый попавшийся товар
@@ -29,7 +29,7 @@ def test123(driver):
         driver.find_element(By.XPATH, "//a[@href='http://localhost/litecart/en/']").click()
     driver.find_element(By.XPATH, "//a[text()='Checkout »']").click()
     elems = driver.find_elements(By.XPATH, "//td[@class='item']")  # список всех элементов на странице Checkout
-    time.sleep(5) # добавил сюда ожидание для теста, чтобы было видно изначальное кол-во товаров на странице checkout, т.е первое удаление мгновенное
+   # time.sleep(3) # добавил сюда ожидание для теста, чтобы было видно изначальное кол-во товаров на странице checkout, т.е первое удаление мгновенное
     for q in range(len(elems)):
         driver.find_element(By.XPATH, "//button[text()='Remove']").click()
         wait.until(EC.staleness_of(elems[0]))  # ждем пока не пропадет элемент из списка
