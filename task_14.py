@@ -24,6 +24,9 @@ def test_1(driver):
     for x in driver.find_elements(By.XPATH, "//form[*]//a[@target='_blank']"):
         main_window = driver.current_window_handle  # пишем в переменную главную страницу
         x.click()
+        # current_window = driver.window_handles[-1]
+        # print(driver.window_handles)
+        # driver.switch_to.window(current_window)
         for handel in driver.window_handles:
             if handel != main_window:
                 driver.switch_to.window(handel)
