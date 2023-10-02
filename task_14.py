@@ -24,8 +24,9 @@ def test_1(driver):
     for x in driver.find_elements(By.XPATH, "//form[*]//a[@target='_blank']"):
         main_window = driver.current_window_handle  # пишем в переменную главную страницу
         x.click()
-        current_window = driver.window_handles[-1]
-        driver.switch_to.window(current_window) # меняем текущее рабочее окно на только что открытое
+        for handel in driver.window_handles:
+            if handel != main_window:
+                driver.switch_to.window(handel)
         wait.until(EC.presence_of_element_located((By.XPATH, "//h1"))) # ждем пока страница не прогрузится, ищем заголовок в новой странице
         driver.close()  # закрываем выбранное рабочее окно
         driver.switch_to.window(main_window)  # переключаемся на главное окно
