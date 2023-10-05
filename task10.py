@@ -2,7 +2,8 @@ import pytest
 import time
 from selenium import webdriver
 from selenium.webdriver.common.by import By
-
+from selenium.webdriver.support.color import Color
+import ast
 
 @pytest.fixture()
 def driver():
@@ -22,16 +23,19 @@ def test_ch(driver):
     regular_price = elem.find_element(By.XPATH, ".//s[@class='regular-price']").get_attribute('textContent')
     campaign_price = elem.find_element(By.XPATH, ".//strong[@class='campaign-price']").get_attribute('textContent')
     regular_price_cross = elem.find_element(By.XPATH, ".//s[@class='regular-price']").value_of_css_property('text-decoration')
-    assert regular_price_cross == 'line-through solid rgb(119, 119, 119)' or 'line-through rgb(119, 119, 119)' # обычная цена зачеркнутая?
+    #assert regular_price_cross == 'line-through solid rgb(119, 119, 119)' or 'line-through rgb(119, 119, 119)' # обычная цена зачеркнутая?
+    assert regular_price_cross.startswith('line-through') # проверяем декоратор на наличия элемента зачеркивания текста
 
-    regular_price_font = elem.find_element(By.XPATH, ".//s[@class='regular-price']").value_of_css_property('font-weight')
-    campaign_price_font = elem.find_element(By.XPATH, ".//strong[@class='campaign-price']").value_of_css_property('font-weight')
-    assert int(campaign_price_font)>int(regular_price_font) # сравниваем размер шрифта
+    regular_price_font = elem.find_element(By.XPATH, ".//s[@class='regular-price']").value_of_css_property('font-size')
+    campaign_price_font = elem.find_element(By.XPATH, ".//strong[@class='campaign-price']").value_of_css_property('font-size')
+    assert (ast.literal_eval(campaign_price_font[:-2])) > (ast.literal_eval(regular_price_font[:-2]))
 
     regular_price_color = elem.find_element(By.XPATH, ".//s[@class='regular-price']").value_of_css_property('color')
-    assert regular_price_color == 'rgba(119, 119, 119, 1)' or 'rgba(119, 119, 119)' # обычная цена серая?
+    red, green, blue, a = ast.literal_eval(regular_price_color.strip('rgba'))
+    assert red == green == blue  # обычная цена серая?
     campaign_price_color = elem.find_element(By.XPATH, ".//strong[@class='campaign-price']").value_of_css_property('color')
-    assert campaign_price_color == 'rgba(204, 0, 0, 1)' or 'rgba(204, 0, 0' # цвет красный?
+    red, green, blue, a = ast.literal_eval(campaign_price_color.strip('rgba'))
+    assert green == 0 and blue == 0  # цвет красный?
 
     elem.click()  # переходим на страницу товара
 
@@ -40,14 +44,16 @@ def test_ch(driver):
     inner_campaign_price = driver.find_element(By.XPATH, "//strong[@class='campaign-price']").get_attribute('textContent')
     assert text == inner_text and regular_price == inner_regular_price and campaign_price == inner_campaign_price
 
-    inner_regular_price_font = driver.find_element(By.XPATH, "//s[@class='regular-price']").value_of_css_property('font-weight')
-    inner_campaign_price_font = driver.find_element(By.XPATH, "//strong[@class='campaign-price']").value_of_css_property('font-weight')
-    assert int(inner_campaign_price_font)>int(inner_regular_price_font) # сравниваем размер шрифта на странице товара
+    inner_regular_price_font = driver.find_element(By.XPATH, "//s[@class='regular-price']").value_of_css_property('font-size')
+    inner_campaign_price_font = driver.find_element(By.XPATH, "//strong[@class='campaign-price']").value_of_css_property('font-size')
+    # сравниваем размер шрифта на странице товара обрезая буквы "px", чтобы привести к числовому виду
+    assert (ast.literal_eval(inner_campaign_price_font[:-2]))>(ast.literal_eval(inner_regular_price_font[:-2]))
 
     # сравниваем показатели текста и цены
 
     inner_regular_price_color = driver.find_element(By.XPATH, "//s[@class='regular-price']").value_of_css_property('color')
-    assert inner_regular_price_color == 'rgba(102, 102, 102, 1)' or 'rgba(102, 102, 102)'
+    red, green, blue, a = ast.literal_eval(inner_regular_price_color.strip('rgba'))
+    assert red == green == blue  # цена серая?
     inner_regular_campaign_color = driver.find_element(By.XPATH, "//strong[@class='campaign-price']").value_of_css_property('color')
-    assert inner_regular_campaign_color == 'rgba(204, 0, 0, 1)' or 'rgba(204, 0, 0)'
-    assert text == inner_text and regular_price == inner_regular_price and campaign_price == inner_campaign_price
+    red, green, blue, a = ast.literal_eval(inner_regular_campaign_color.strip('rgba'))
+    assert green == 0 and blue == 0  # цвет красный?
