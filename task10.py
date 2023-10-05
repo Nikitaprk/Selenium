@@ -23,7 +23,6 @@ def test_ch(driver):
     regular_price = elem.find_element(By.XPATH, ".//s[@class='regular-price']").get_attribute('textContent')
     campaign_price = elem.find_element(By.XPATH, ".//strong[@class='campaign-price']").get_attribute('textContent')
     regular_price_cross = elem.find_element(By.XPATH, ".//s[@class='regular-price']").value_of_css_property('text-decoration')
-    #assert regular_price_cross == 'line-through solid rgb(119, 119, 119)' or 'line-through rgb(119, 119, 119)' # обычная цена зачеркнутая?
     assert regular_price_cross.startswith('line-through') # проверяем декоратор на наличия элемента зачеркивания текста
 
     regular_price_font = elem.find_element(By.XPATH, ".//s[@class='regular-price']").value_of_css_property('font-size')
