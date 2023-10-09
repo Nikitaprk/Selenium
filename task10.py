@@ -30,11 +30,19 @@ def test_ch(driver):
     assert (ast.literal_eval(campaign_price_font[:-2])) > (ast.literal_eval(regular_price_font[:-2]))
 
     regular_price_color = elem.find_element(By.XPATH, ".//s[@class='regular-price']").value_of_css_property('color')
-    red, green, blue, a = ast.literal_eval(regular_price_color.strip('rgba'))
-    assert red == green == blue  # обычная цена серая?
+    try:
+        red, green, blue,a= ast.literal_eval(regular_price_color.strip('rgba'))
+        assert red == green == blue  # обычная цена серая?
+    except:
+        red, green, blue = ast.literal_eval(regular_price_color.strip('rgb'))
+        assert red == green == blue  # обычная цена серая?
     campaign_price_color = elem.find_element(By.XPATH, ".//strong[@class='campaign-price']").value_of_css_property('color')
-    red, green, blue, a = ast.literal_eval(campaign_price_color.strip('rgba'))
-    assert green == 0 and blue == 0  # цвет красный?
+    try:
+        red, green, blue,a= ast.literal_eval(campaign_price_color.strip('rgba'))
+        assert green == 0 and blue == 0  # цвет красный?
+    except:
+        red, green, blue = ast.literal_eval(campaign_price_color.strip('rgb'))
+        assert green == 0 and blue == 0  # цвет красный?
 
     elem.click()  # переходим на страницу товара
 
@@ -51,8 +59,16 @@ def test_ch(driver):
     # сравниваем показатели текста и цены
 
     inner_regular_price_color = driver.find_element(By.XPATH, "//s[@class='regular-price']").value_of_css_property('color')
-    red, green, blue, a = ast.literal_eval(inner_regular_price_color.strip('rgba'))
-    assert red == green == blue  # цена серая?
+    try:
+        red, green, blue,a= ast.literal_eval(inner_regular_price_color.strip('rgba'))
+        assert red == green == blue  # цена серая?
+    except:
+        red, green, blue = ast.literal_eval(inner_regular_price_color.strip('rgb'))
+        assert red == green == blue  # цена серая?
     inner_regular_campaign_color = driver.find_element(By.XPATH, "//strong[@class='campaign-price']").value_of_css_property('color')
-    red, green, blue, a = ast.literal_eval(inner_regular_campaign_color.strip('rgba'))
-    assert green == 0 and blue == 0  # цвет красный?
+    try:
+        red, green, blue,a= ast.literal_eval(inner_regular_campaign_color.strip('rgba'))
+        assert green == 0 and blue == 0  # цвет красный?
+    except:
+        red, green, blue= ast.literal_eval(inner_regular_campaign_color.strip('rgb'))
+        assert green == 0 and blue == 0  # цвет красный?
