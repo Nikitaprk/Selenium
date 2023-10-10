@@ -31,5 +31,5 @@ class Goods_page(BasePage):
     def back_to_main(self):
         return self.find(BACK_TO_MAIN)
 
-    def wait_for(self, args):
-        return self.waiting(CHECK_QUANTITY, args)
+    # def wait_for(self, args):
+    #     return self.waiting(CHECK_QUANTITY, args)
