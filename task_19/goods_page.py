@@ -10,7 +10,7 @@ BACK_TO_MAIN = (By.XPATH, "//a[@href='http://localhost/litecart/en/']")
 
 
 class Goods_page(BasePage):
-    def __int__(self, driver):
+    def __init__(self, driver):
         super().__init__(driver)
 
     def add(self):

@@ -1,5 +1,3 @@
-#from conftest import driver
-from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from main_page import Main_page
@@ -7,9 +5,9 @@ from goods_page import Goods_page, CHECK_QUANTITY
 from bin_page import Bin_page
 
 
-main = Main_page()
-goods_page = Goods_page()
-bin_page = Bin_page()
+# main = Main_page()
+# goods_page = Goods_page(driver)
+# bin_page = Bin_page(driver)
 
 # def test123(driver):
 #     wait = WebDriverWait(driver, 3)
@@ -33,21 +31,22 @@ bin_page = Bin_page()
 #         driver.find_element(By.XPATH, "//button[text()='Remove']").click()
 #         wait.until(EC.staleness_of(elems[0]))  # ждем пока не пропадет элемент из списка
 #         elems = driver.find_elements(By.XPATH, "//td[@class='item']")
-
-
 def test1(driver):
+    main = Main_page(driver)
+    goods_page = Goods_page(driver)
+    bin_page = Bin_page(driver)
     wait = WebDriverWait(driver, 3)
     x = 1
     for i in range(3):
         main.select_duck().click()
-        if len(goods_page.check_if_yellow() == 1):
+        if len(goods_page.check_if_yellow()) == 1:
             goods_page.yellow_duck_size().click()
             goods_page.yellow_duck_choose_size().click()
         goods_page.add().click()
-        wait.until(EC.text_to_be_present_in_element(CHECK_QUANTITY), str(x))
+        wait.until(EC.text_to_be_present_in_element(CHECK_QUANTITY, str(x)))
         x += 1
         goods_page.back_to_main().click()
-        main.checkout().click()
+    main.checkout().click()
     elems = bin_page.all_elements()
     for q in range(len(elems)):
         bin_page.remove_action()

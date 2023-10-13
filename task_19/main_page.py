@@ -6,7 +6,7 @@ GO_TO_CART = (By.XPATH, "//a[text()='Checkout »']")
 
 
 class Main_page(BasePage):
-    def __int__(self, driver):
+    def __init__(self, driver):
         super().__init__(driver)
 
     def select_duck(self):

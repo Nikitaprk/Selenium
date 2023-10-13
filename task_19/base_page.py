@@ -1,8 +1,9 @@
-#from conftest import driver
+from conftest import driver
+from selenium.webdriver.common.by import By
 
 
 class BasePage:
-    def __int__(self, driver):
+    def __init__(self, driver):
         self.driver = driver
         # self.wait = WebDriverWait(driver, 3)
 

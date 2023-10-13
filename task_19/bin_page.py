@@ -7,7 +7,7 @@ REMOVE = (By.XPATH, "//button[text()='Remove']")
 
 
 class Bin_page(BasePage):
-    def __int__(self, driver):
+    def __init__(self, driver):
         super().__init__(driver)
 
     def all_elements(self):
