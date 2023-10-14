@@ -1,9 +1,10 @@
 from conftest import driver
-from selenium.webdriver.common.by import By
+from selenium.webdriver.support.ui import WebDriverWait
 
 
 class BasePage:
     def __init__(self, driver):
+        self.WebDriverWait = WebDriverWait
         self.driver = driver
         # self.wait = WebDriverWait(driver, 3)
 
@@ -13,5 +14,4 @@ class BasePage:
     def finds(self, args):
         return self.driver.find_elements(*args)
 
-    # def waiting(self, args):
-    #     self.wait.until(EC.text_to_be_present_in_element(args))
+

@@ -10,7 +10,7 @@ class Main_page(BasePage):
         super().__init__(driver)
 
     def select_duck(self):
-        return self.find(DUCK_LOCATOR)
+        return self.find(DUCK_LOCATOR).click()
 
     def checkout(self):
-        return self.find(GO_TO_CART)
+        return self.find(GO_TO_CART).click()

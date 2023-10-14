@@ -35,21 +35,20 @@ def test1(driver):
     main = Main_page(driver)
     goods_page = Goods_page(driver)
     bin_page = Bin_page(driver)
-    wait = WebDriverWait(driver, 3)
     x = 1
     for i in range(3):
-        main.select_duck().click()
+        main.select_duck()
         if len(goods_page.check_if_yellow()) == 1:
-            goods_page.yellow_duck_size().click()
-            goods_page.yellow_duck_choose_size().click()
-        goods_page.add().click()
-        wait.until(EC.text_to_be_present_in_element(CHECK_QUANTITY, str(x)))
+            goods_page.yellow_duck_size()
+            goods_page.yellow_duck_choose_size()
+        goods_page.add(x)
+        #wait.until(EC.text_to_be_present_in_element(CHECK_QUANTITY, str(x)))
         x += 1
-        goods_page.back_to_main().click()
-    main.checkout().click()
+        goods_page.back_to_main()
+    main.checkout()
     elems = bin_page.all_elements()
     for q in range(len(elems)):
-        bin_page.remove_action()
-        wait.until(EC.staleness_of(elems[0]))
+        bin_page.remove_action(elems)
+        #wait.until(EC.staleness_of(elems[0]))
         elems = bin_page.all_elements()
 
