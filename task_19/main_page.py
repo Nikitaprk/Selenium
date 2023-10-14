@@ -12,5 +12,5 @@ class Main_page(BasePage):
     def select_duck(self):
         return self.find(DUCK_LOCATOR).click()
 
-    def checkout(self):
+    def get_to_checkout(self):
         return self.find(GO_TO_CART).click()

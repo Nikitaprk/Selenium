@@ -11,11 +11,11 @@ REMOVE = (By.XPATH, "//button[text()='Remove']")
 class Bin_page(BasePage):
     def __init__(self, driver):
         super().__init__(driver)
+        self.wait = WebDriverWait(driver, 3)
 
-    def all_elements(self):
+    def get_all_elements(self):
         return self.finds(ALL_ELEMENTS)
 
     def remove_action(self, elems):
-        wait = WebDriverWait(driver, 3)
         self.find(REMOVE).click()
-        wait.until(EC.staleness_of(elems[0]))
+        self.wait.until(EC.staleness_of(elems[0]))
