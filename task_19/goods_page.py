@@ -23,11 +23,9 @@ class Goods_page(BasePage):
     def check_if_yellow(self):
         return self.finds(YELLOW_DUCK_LOCATOR)
 
-    def yellow_duck_size(self):
-        return self.find(YELLOW_DUCK_LOCATOR).click()
-
     def yellow_duck_choose_size(self):
-        return self.find(YELLOW_DUCK_CHOOSE_SIZE).click()
+        self.find(YELLOW_DUCK_LOCATOR).click()
+        self.find(YELLOW_DUCK_CHOOSE_SIZE).click()
 
     def check_quantity(self):
         self.find(CHECK_QUANTITY)

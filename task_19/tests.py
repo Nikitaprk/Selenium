@@ -11,7 +11,6 @@ def test1(driver):
     for i in range(3):
         main.select_duck()
         if len(goods_page.check_if_yellow()) == 1:
-            goods_page.yellow_duck_size()
             goods_page.yellow_duck_choose_size()
         goods_page.add_to_cart(x)  # передаем значение х для проверки значения около корзины для ожидания его появления
         x += 1
