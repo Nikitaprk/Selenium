@@ -16,7 +16,7 @@ class Goods_page(BasePage):
         super().__init__(driver)
         self.wait = WebDriverWait(driver, 3)
 
-    def add(self, x):
+    def add_to_cart(self, x):
         self.find(ADD_TO_CART).click()
         self.wait.until(EC.text_to_be_present_in_element(CHECK_QUANTITY, str(x)))
 

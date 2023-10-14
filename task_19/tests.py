@@ -41,7 +41,7 @@ def test1(driver):
         if len(goods_page.check_if_yellow()) == 1:
             goods_page.yellow_duck_size()
             goods_page.yellow_duck_choose_size()
-        goods_page.add(x)
+        goods_page.add_to_cart(x)  # передаем значение х для проверки значения около корзины для ожидания его появления
         #wait.until(EC.text_to_be_present_in_element(CHECK_QUANTITY, str(x)))
         x += 1
         goods_page.back_to_main()
